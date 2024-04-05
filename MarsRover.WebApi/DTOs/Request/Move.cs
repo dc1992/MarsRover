@@ -14,7 +14,7 @@ public class Move : IValidatableObject
         if (Commands == null || !Commands.Any())
             results.Add(new ValidationResult($"{nameof(Commands)} should not be empty"));
 
-        if (Commands.Any(command => !ValidCommands.Contains(command)))
+        if (Commands != null && Commands.Any(command => !ValidCommands.Contains(command)))
             results.Add(new ValidationResult($"{nameof(Commands)} should only contain valid commands: [{string.Join(',', ValidCommands)}]"));
         
         return results;
