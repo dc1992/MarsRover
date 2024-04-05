@@ -2,7 +2,7 @@ using MarsRover.WebApi.DTOs.Request;
 
 namespace MarsRover.WebApi.Test;
 
-public class Tests
+public class ValidationTests
 {
     [Test]
     public void EmptyRequest_ShouldReturnEmptyCommandsError()
