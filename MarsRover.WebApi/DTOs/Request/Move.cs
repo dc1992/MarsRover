@@ -1,5 +1,5 @@
 using System.ComponentModel.DataAnnotations;
-using static MarsRover.WebApi.Constants.Commands;
+using static MarsRover.Domain.Shared.Commands;
 
 namespace MarsRover.WebApi.DTOs.Request;
 

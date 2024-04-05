@@ -1,4 +1,4 @@
-namespace MarsRover.WebApi.Constants;
+namespace MarsRover.Domain.Shared;
 
 public static class Commands
 {

@@ -1,3 +1,4 @@
+using MarsRover.Domain.Shared;
 using MarsRover.WebApi.DTOs.Request;
 
 namespace MarsRover.WebApi.Test;
@@ -24,7 +25,7 @@ public class ValidationTests
 
         var validationResults = moveReq.Validate(null);
         
-        Assert.That(validationResults.First().ErrorMessage, Is.EqualTo($"Commands should only contain valid commands: [{string.Join(',', Constants.Commands.ValidCommands)}]"));
+        Assert.That(validationResults.First().ErrorMessage, Is.EqualTo($"Commands should only contain valid commands: [{string.Join(',', Commands.ValidCommands)}]"));
     }
     
     [Test]
@@ -32,12 +33,12 @@ public class ValidationTests
     {
         var moveReq = new Move
         {
-            Commands = [ "WRONG_PARAM", Constants.Commands.Left ]
+            Commands = [ "WRONG_PARAM", Commands.Left ]
         };
 
         var validationResults = moveReq.Validate(null);
         
-        Assert.That(validationResults.First().ErrorMessage, Is.EqualTo($"Commands should only contain valid commands: [{string.Join(',', Constants.Commands.ValidCommands)}]"));
+        Assert.That(validationResults.First().ErrorMessage, Is.EqualTo($"Commands should only contain valid commands: [{string.Join(',', Commands.ValidCommands)}]"));
     }
     
     [Test]
@@ -45,7 +46,7 @@ public class ValidationTests
     {
         var moveReq = new Move
         {
-            Commands = [ Constants.Commands.Left ]
+            Commands = [ Commands.Left ]
         };
 
         var validationResults = moveReq.Validate(null);
