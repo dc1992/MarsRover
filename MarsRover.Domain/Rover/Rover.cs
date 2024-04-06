@@ -1,9 +1,10 @@
+using MarsRover.Domain.Planet;
 using MarsRover.Domain.Shared;
 
 namespace MarsRover.Domain.Rover;
 
 //for simplicity's sake I assume that the starting point is fixed
-public class Rover(Direction currentDirection = Direction.NORTH, int startingXPosition = 0, int startingYPosition = 0)
+public class Rover(IPlanet planet, Direction currentDirection = Direction.NORTH, int startingXPosition = 0, int startingYPosition = 0)
     : IRover
 {
     private Coordinates _currentPosition = new(startingXPosition, startingYPosition);
@@ -20,23 +21,27 @@ public class Rover(Direction currentDirection = Direction.NORTH, int startingXPo
                 case Commands.Left:
                     RotateCounterClockwise();
                     break;
+                
                 case Commands.Right:
                     RotateClockwise();
                     break;
+
                 case Commands.Forward:
-                    Move(1);
-                    break;
                 case Commands.Backward:
-                    Move(-1);
+                {
+                    var steps = command == Commands.Forward ? 1 : -1;
+                    var nextPosition = CalculateNextPosition(steps);
+                    
+                    if (planet.CheckForObstacle(nextPosition))
+                        return new ExecutionResult(startingPoint, startingDirection, _currentPosition, currentDirection, Statuses.ObstacleFound);
+                    
+                    _currentPosition = nextPosition;
                     break;
+                }
             }
         }
 
-        var destinationPoint = _currentPosition;
-        var destinationDirection = currentDirection;
-        var status = Statuses.Ok;
-
-        var executionResult = new ExecutionResult(startingPoint, startingDirection, destinationPoint, destinationDirection, status);
+        var executionResult = new ExecutionResult(startingPoint, startingDirection, _currentPosition, currentDirection, Statuses.Ok);
 
         return executionResult;
     }
@@ -65,9 +70,9 @@ public class Rover(Direction currentDirection = Direction.NORTH, int startingXPo
         };
     }
 
-    private void Move(int numberOfSteps)
+    private Coordinates CalculateNextPosition(int numberOfSteps)
     {
-        _currentPosition = currentDirection switch
+        return currentDirection switch
         {
             Direction.NORTH => new Coordinates(_currentPosition.X, _currentPosition.Y + numberOfSteps),
             Direction.EAST => new Coordinates(_currentPosition.X + numberOfSteps, _currentPosition.Y),
