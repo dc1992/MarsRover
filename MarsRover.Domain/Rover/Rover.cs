@@ -38,11 +38,11 @@ public class Rover : IRover
             }
         }
 
-        var arrivalPoint = _currentPosition;
-        var arrivalDirection = _currentDirection;
+        var destinationPoint = _currentPosition;
+        var destinationDirection = _currentDirection;
         var status = "OK";
 
-        var executionResult = new ExecutionResult(startingPoint, startingDirection, arrivalPoint, arrivalDirection, status);
+        var executionResult = new ExecutionResult(startingPoint, startingDirection, destinationPoint, destinationDirection, status);
 
         return executionResult;
     }
