@@ -53,8 +53,7 @@ public class Rover(IPlanet planet, Direction currentDirection = Direction.NORTH,
             Direction.NORTH => Direction.WEST,
             Direction.WEST => Direction.SOUTH,
             Direction.SOUTH => Direction.EAST,
-            Direction.EAST => Direction.NORTH,
-            _ => currentDirection
+            Direction.EAST => Direction.NORTH
         };
     }
     
@@ -65,8 +64,7 @@ public class Rover(IPlanet planet, Direction currentDirection = Direction.NORTH,
             Direction.NORTH => Direction.EAST,
             Direction.EAST => Direction.SOUTH,
             Direction.SOUTH => Direction.WEST,
-            Direction.WEST => Direction.NORTH,
-            _ => currentDirection
+            Direction.WEST => Direction.NORTH
         };
     }
 
@@ -77,8 +75,7 @@ public class Rover(IPlanet planet, Direction currentDirection = Direction.NORTH,
             Direction.NORTH => new Coordinates(_currentPosition.X, CalculateIndex(_currentPosition.Y, numberOfSteps,planet.Height)),
             Direction.EAST => new Coordinates(CalculateIndex(_currentPosition.X, numberOfSteps,planet.Width), _currentPosition.Y),
             Direction.SOUTH => new Coordinates(_currentPosition.X, CalculateIndex(_currentPosition.Y, -numberOfSteps,planet.Height)),
-            Direction.WEST => new Coordinates(CalculateIndex(_currentPosition.X, -numberOfSteps,planet.Width), _currentPosition.Y),
-            _ => _currentPosition
+            Direction.WEST => new Coordinates(CalculateIndex(_currentPosition.X, -numberOfSteps,planet.Width), _currentPosition.Y)
         };
     }
 

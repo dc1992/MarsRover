@@ -40,6 +40,22 @@ public class RoverTests
     }
     
     [Test]
+    public void ExecuteCommands_CompleteAntiClockwiseCommands_ShouldReturnToStartingPosition()
+    {
+        var result = _rover.ExecuteCommands([Commands.Left, Commands.Left, Commands.Left, Commands.Left]);
+
+        Assert.That(result.StartingPoint.X, Is.EqualTo(0));
+        Assert.That(result.StartingPoint.Y, Is.EqualTo(0));
+        Assert.That(result.StartingDirection, Is.EqualTo(Direction.NORTH));
+        
+        Assert.That(result.DestinationPoint.X, Is.EqualTo(0));
+        Assert.That(result.DestinationPoint.Y, Is.EqualTo(0));
+        Assert.That(result.DestinationDirection, Is.EqualTo(Direction.NORTH));
+        
+        Assert.That(result.Status, Is.EqualTo(Statuses.Ok));
+    }
+    
+    [Test]
     public void ExecuteCommands_RightCommand_ShouldRotateRight()
     {
         var result = _rover.ExecuteCommands([Commands.Right]);
@@ -51,6 +67,22 @@ public class RoverTests
         Assert.That(result.DestinationPoint.X, Is.EqualTo(0));
         Assert.That(result.DestinationPoint.Y, Is.EqualTo(0));
         Assert.That(result.DestinationDirection, Is.EqualTo(Direction.EAST));
+        
+        Assert.That(result.Status, Is.EqualTo(Statuses.Ok));
+    }
+    
+    [Test]
+    public void ExecuteCommands_CompleteClockwiseCommands_ShouldReturnToStartingPosition()
+    {
+        var result = _rover.ExecuteCommands([Commands.Right, Commands.Right, Commands.Right, Commands.Right]);
+
+        Assert.That(result.StartingPoint.X, Is.EqualTo(0));
+        Assert.That(result.StartingPoint.Y, Is.EqualTo(0));
+        Assert.That(result.StartingDirection, Is.EqualTo(Direction.NORTH));
+        
+        Assert.That(result.DestinationPoint.X, Is.EqualTo(0));
+        Assert.That(result.DestinationPoint.Y, Is.EqualTo(0));
+        Assert.That(result.DestinationDirection, Is.EqualTo(Direction.NORTH));
         
         Assert.That(result.Status, Is.EqualTo(Statuses.Ok));
     }
