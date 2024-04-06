@@ -40,7 +40,7 @@ public class Rover : IRover
 
         var destinationPoint = _currentPosition;
         var destinationDirection = _currentDirection;
-        var status = "OK";
+        var status = Statuses.Ok;
 
         var executionResult = new ExecutionResult(startingPoint, startingDirection, destinationPoint, destinationDirection, status);
 

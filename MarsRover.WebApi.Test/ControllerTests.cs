@@ -14,7 +14,7 @@ public class ControllerTests
     {
         var input = new List<string> { Commands.Left };
         var output = new ExecutionResult(new Coordinates(0, 0), Direction.NORTH, 
-            new Coordinates(0, 0), Direction.WEST, "OK");
+            new Coordinates(0, 0), Direction.WEST, Statuses.Ok);
         
         var rover = new Mock<IRover>();
         rover
