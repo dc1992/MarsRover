@@ -4,14 +4,14 @@ namespace MarsRover.Domain.Planet;
 
 public class Mars : IPlanet
 {
-    public int Length { get; }
+    public int Width { get; }
     public int Height { get; }
     private ICollection<Coordinates> _obstacles;
 
     //for simplicity's sake I assume that planet dimensions and obstacles are fixed
     public Mars()
     {
-        Length = 10;
+        Width = 10;
         Height = 10;
         _obstacles = new List<Coordinates>
         {

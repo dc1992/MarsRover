@@ -14,6 +14,12 @@ public class RoverTests
     public void Setup()
     {
         _planet = new Mock<IPlanet>();
+        _planet
+            .Setup(p => p.Height)
+            .Returns(10);
+        _planet
+            .Setup(p => p.Width)
+            .Returns(10);
         _rover = new RoverDir.Rover(_planet.Object);
     }
 

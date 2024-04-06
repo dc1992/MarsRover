@@ -4,7 +4,7 @@ namespace MarsRover.Domain.Planet;
 
 public interface IPlanet
 {
-    public int Length { get; }
+    public int Width { get; }
     public int Height { get; }
     public bool CheckForObstacle(Coordinates coordinates);
 }
