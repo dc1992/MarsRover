@@ -9,16 +9,29 @@ namespace MarsRover.WebApi.Controllers;
 [Route("/api/rover/")]
 public class RoverController(IRover rover) : ControllerBase
 {
+    /// <remarks>
+    /// Sample request:
+    ///
+    ///     {
+    ///       "commands": [
+    ///         "L", "R", "F", "B"
+    ///       ]
+    ///     }
+    ///
+    /// </remarks>
     [HttpPost]
     [Route("position")]
+    [ProducesResponseType(typeof(ExecutionResult), 200)]
+    [ProducesResponseType(typeof(ExecutionResult), 206)]
+    [ProducesResponseType(400)]
     public IActionResult Move(Request.Move move)
     {
         var result = rover.ExecuteCommands(move.Commands);
 
-        return MapResultInAppropriateStatusCode(result);
+        return MapExecutionResultInAppropriateStatusCode(result);
     }
 
-    private IActionResult MapResultInAppropriateStatusCode(ExecutionResult result)
+    private IActionResult MapExecutionResultInAppropriateStatusCode(ExecutionResult result)
     {
         if (result.Status == Statuses.ObstacleFound)
             return StatusCode(206, result);
