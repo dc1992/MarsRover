@@ -74,11 +74,16 @@ public class Rover(IPlanet planet, Direction currentDirection = Direction.NORTH,
     {
         return currentDirection switch
         {
-            Direction.NORTH => new Coordinates(_currentPosition.X, _currentPosition.Y + numberOfSteps),
-            Direction.EAST => new Coordinates(_currentPosition.X + numberOfSteps, _currentPosition.Y),
-            Direction.SOUTH => new Coordinates(_currentPosition.X, _currentPosition.Y - numberOfSteps),
-            Direction.WEST => new Coordinates(_currentPosition.X - numberOfSteps, _currentPosition.Y),
+            Direction.NORTH => new Coordinates(_currentPosition.X, CalculateIndex(_currentPosition.Y, numberOfSteps,planet.Height)),
+            Direction.EAST => new Coordinates(CalculateIndex(_currentPosition.X, numberOfSteps,planet.Width), _currentPosition.Y),
+            Direction.SOUTH => new Coordinates(_currentPosition.X, CalculateIndex(_currentPosition.Y, -numberOfSteps,planet.Height)),
+            Direction.WEST => new Coordinates(CalculateIndex(_currentPosition.X, -numberOfSteps,planet.Width), _currentPosition.Y),
             _ => _currentPosition
         };
+    }
+
+    private int CalculateIndex(int currentPosition, int step, int totalLength)
+    {
+        return ((currentPosition + step) % totalLength + totalLength) % totalLength;
     }
 }
