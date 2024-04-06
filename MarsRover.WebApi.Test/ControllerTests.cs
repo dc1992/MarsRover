@@ -13,7 +13,8 @@ public class ControllerTests
     public void Move_ShouldCallIRoverAndReturnOk()
     {
         var input = new List<string> { Commands.Left };
-        var output = new ExecutionResult();
+        var output = new ExecutionResult(new Coordinates(0, 0), Direction.NORTH, 
+            new Coordinates(0, 0), Direction.WEST, "OK");
         
         var rover = new Mock<IRover>();
         rover

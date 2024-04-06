@@ -8,13 +8,11 @@ namespace MarsRover.WebApi.Controllers;
 [Route("/api/rover/")]
 public class RoverController(IRover rover) : ControllerBase
 {
-    private readonly IRover _rover = rover;
-
     [HttpPost]
     [Route("position")]
     public IActionResult Move(Request.Move move)
     {
-        var result = _rover.ExecuteCommands(move.Commands);
+        var result = rover.ExecuteCommands(move.Commands);
 
         return Ok(result);
     }
