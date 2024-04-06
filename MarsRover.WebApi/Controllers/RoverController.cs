@@ -1,4 +1,5 @@
 using MarsRover.Domain.Rover;
+using MarsRover.Domain.Shared;
 using Microsoft.AspNetCore.Mvc;
 using Request = MarsRover.WebApi.DTOs.Request;
 
@@ -14,6 +15,14 @@ public class RoverController(IRover rover) : ControllerBase
     {
         var result = rover.ExecuteCommands(move.Commands);
 
+        return MapResultInAppropriateStatusCode(result);
+    }
+
+    private IActionResult MapResultInAppropriateStatusCode(ExecutionResult result)
+    {
+        if (result.Status == Statuses.ObstacleFound)
+            return StatusCode(206, result);
+        
         return Ok(result);
     }
 }
