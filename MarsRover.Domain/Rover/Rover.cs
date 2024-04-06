@@ -2,22 +2,16 @@ using MarsRover.Domain.Shared;
 
 namespace MarsRover.Domain.Rover;
 
-public class Rover : IRover
+//for simplicity's sake I assume that the starting point is fixed
+public class Rover(Direction currentDirection = Direction.NORTH, int startingXPosition = 0, int startingYPosition = 0)
+    : IRover
 {
-    private Direction _currentDirection;
-    private Coordinates _currentPosition;
-    
-    public Rover()
-    {
-        //for simplicity's sake I assume that the starting point is fixed 
-        _currentDirection = Direction.NORTH;
-        _currentPosition = new Coordinates(0, 0);
-    }
-    
+    private Coordinates _currentPosition = new(startingXPosition, startingYPosition);
+
     public ExecutionResult ExecuteCommands(ICollection<string> commands)
     {
         var startingPoint = _currentPosition;
-        var startingDirection = _currentDirection;
+        var startingDirection = currentDirection;
         
         foreach (var command in commands)
         {
@@ -39,7 +33,7 @@ public class Rover : IRover
         }
 
         var destinationPoint = _currentPosition;
-        var destinationDirection = _currentDirection;
+        var destinationDirection = currentDirection;
         var status = Statuses.Ok;
 
         var executionResult = new ExecutionResult(startingPoint, startingDirection, destinationPoint, destinationDirection, status);
@@ -49,31 +43,31 @@ public class Rover : IRover
 
     private void RotateCounterClockwise()
     {
-        _currentDirection = _currentDirection switch
+        currentDirection = currentDirection switch
         {
             Direction.NORTH => Direction.WEST,
             Direction.WEST => Direction.SOUTH,
             Direction.SOUTH => Direction.EAST,
             Direction.EAST => Direction.NORTH,
-            _ => _currentDirection
+            _ => currentDirection
         };
     }
     
     private void RotateClockwise()
     {
-        _currentDirection = _currentDirection switch
+        currentDirection = currentDirection switch
         {
             Direction.NORTH => Direction.EAST,
             Direction.EAST => Direction.SOUTH,
             Direction.SOUTH => Direction.WEST,
             Direction.WEST => Direction.NORTH,
-            _ => _currentDirection
+            _ => currentDirection
         };
     }
 
     private void Move(int numberOfSteps)
     {
-        _currentPosition = _currentDirection switch
+        _currentPosition = currentDirection switch
         {
             Direction.NORTH => new Coordinates(_currentPosition.X, _currentPosition.Y + numberOfSteps),
             Direction.EAST => new Coordinates(_currentPosition.X + numberOfSteps, _currentPosition.Y),

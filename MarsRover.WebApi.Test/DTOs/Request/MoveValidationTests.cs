@@ -1,9 +1,9 @@
 using MarsRover.Domain.Shared;
 using MarsRover.WebApi.DTOs.Request;
 
-namespace MarsRover.WebApi.Test;
+namespace MarsRover.WebApi.Test.DTOs.Request;
 
-public class ValidationTests
+public class MoveValidationTests
 {
     [Test]
     public void EmptyRequest_ShouldReturnEmptyCommandsError()

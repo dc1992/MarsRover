@@ -1,4 +1,5 @@
 using System.Text.Json.Serialization;
+using MarsRover.Domain.Planet;
 using MarsRover.Domain.Rover;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,6 +13,7 @@ builder.Services.AddControllers().AddJsonOptions(options =>
     options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
 });
 builder.Services.AddScoped<IRover, Rover>();
+builder.Services.AddScoped<IPlanet, Mars>();
 
 var app = builder.Build();
 

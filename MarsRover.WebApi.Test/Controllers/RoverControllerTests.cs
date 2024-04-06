@@ -5,9 +5,9 @@ using MarsRover.WebApi.DTOs.Request;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 
-namespace MarsRover.WebApi.Test;
+namespace MarsRover.WebApi.Test.Controllers;
 
-public class ControllerTests
+public class RoverControllerTests
 {
     [Test]
     public void Move_ShouldCallIRoverAndReturnOk()
